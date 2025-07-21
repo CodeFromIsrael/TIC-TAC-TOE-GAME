@@ -11,7 +11,7 @@ class RegisterController {
   final TextEditingController passController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  final TextEditingController nameCotroller = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController confirmController = TextEditingController();
   final streamObscureText = BehaviorSubject<bool>();
   bool isconfirmed = true;
@@ -23,7 +23,7 @@ class RegisterController {
   String? validateName(String? value) {
     if (value == null || value.isEmpty) return "Campo Obrigatório";
     if (value.length < 4) return "Nome Inválido";
-    log("$nameCotroller");
+    log("$nameController");
     return null;
   }
 
@@ -36,7 +36,7 @@ class RegisterController {
 
   String? validatePhone(String? value) {
     if (value == null || value.isEmpty) return "Campo Obrigatório";
-    if (!phoneRegexp.hasMatch(value)) return "Numero Inválido";
+    // if (!phoneRegexp.hasMatch(value)) return "Numero Inválido";
     log("$phoneController");
     return null;
   }

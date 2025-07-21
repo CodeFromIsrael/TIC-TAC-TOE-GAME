@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe_app/controller/register_controller.dart';
 import 'package:tic_tac_toe_app/core/utils/app_colors.dart';
+import 'package:tic_tac_toe_app/services/services.dart';
 import 'package:tic_tac_toe_app/views/dialogs/register_dialog.dart';
 import 'package:tic_tac_toe_app/views/screens/widgets/wavy_container.dart';
 
@@ -37,7 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 "Usuario_123",
                                 const Icon(Icons.person),
                                 controller.validateName,
-                                controller.nameCotroller),
+                                controller.nameController),
                             const SizedBox(
                               height: 20,
                             ),
@@ -157,10 +160,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget cadasterButton() {
     return ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           if (controller.formKey.currentState!.validate()) {
-            showDialog(
-                context: context, builder: (context) => const RegisterDialog());
+            await setUser(controller, context);
           }
         },
         style: ElevatedButton.styleFrom(

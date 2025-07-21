@@ -13,6 +13,7 @@ dependencies:
   rxdart: ^0.28.0
   shared_preferences: ^2.5.3
   phone_form_field: ^10.0.6
+  http: ^1.4.0
 
 dev_dependencies:
   flutter_test:
