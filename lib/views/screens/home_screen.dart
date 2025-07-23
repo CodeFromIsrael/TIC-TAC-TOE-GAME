@@ -22,7 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
             constraints: BoxConstraints(minHeight: constraints.maxHeight),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [top(), modeOfGame(), bottom()],
+              children: [
+                top(),
+                modeOfGame(),
+                const SizedBox(
+                  height: 2,
+                ),
+                logout(),
+                bottom()
+              ],
             ),
           ),
         );
@@ -40,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget modeOfGame() {
     return Padding(
-      padding: const EdgeInsets.all(26),
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           const Text(
@@ -111,4 +119,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+Widget logout() {
+  return IconButton(
+      onPressed: () {},
+      icon: const Icon(
+        Icons.logout,
+        size: 28,
+        color: AppColors.blueColor,
+      ));
 }

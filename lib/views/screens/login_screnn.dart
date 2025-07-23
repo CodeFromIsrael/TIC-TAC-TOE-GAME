@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tic_tac_toe_app/controller/login_controller.dart';
 import 'package:tic_tac_toe_app/core/utils/app_colors.dart';
 import 'package:tic_tac_toe_app/core/utils/app_images.dart';
+import 'package:tic_tac_toe_app/services/services.dart';
 import 'package:tic_tac_toe_app/views/screens/home_screen.dart';
 import 'package:tic_tac_toe_app/views/screens/register_screen.dart';
 import 'package:tic_tac_toe_app/views/screens/widgets/wavy_container.dart';
@@ -207,14 +208,9 @@ class _LoginScrennState extends State<LoginScrenn> {
 
   Widget enterButton() {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         if (controller.formKey.currentState!.validate()) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const HomeScreen(),
-            ),
-          );
+          await loginUser(controller, context);
         }
       },
       style: ElevatedButton.styleFrom(

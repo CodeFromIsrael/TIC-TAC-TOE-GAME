@@ -43,7 +43,7 @@ class RegisterController {
 
   String? validatePass(String? value) {
     if (value == null || value.isEmpty) return "Campo Obrigatório";
-    if (value.length < 8) return "Senha Inválida";
+    if (value.length < 8) return "A senha muito pequena";
     log("$passController");
     return null;
   }

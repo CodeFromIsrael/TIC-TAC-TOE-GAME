@@ -16,18 +16,12 @@ Widget cadasterDialog(context) {
     backgroundColor: AppColors.blueColor,
     contentPadding: const EdgeInsets.all(16),
     shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    children: [
-      const Center(
+    children: const [
+      Center(
           child: Text(
         "Conta Criada !",
         style: TextStyle(color: Colors.white, fontSize: 18),
       )),
-      SimpleDialogOption(
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()));
-        },
-      )
     ],
   );
 }
