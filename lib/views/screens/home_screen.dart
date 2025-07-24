@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:tic_tac_toe_app/controller/source_controller.dart';
 import 'package:tic_tac_toe_app/core/utils/app_colors.dart';
 import 'package:tic_tac_toe_app/core/utils/app_images.dart';
 import 'package:tic_tac_toe_app/views/screens/tictactoe_screen.dart';
@@ -22,15 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
             constraints: BoxConstraints(minHeight: constraints.maxHeight),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                top(),
-                modeOfGame(),
-                const SizedBox(
-                  height: 2,
-                ),
-                logout(),
-                bottom()
-              ],
+              children: [top(), modeOfGame(), logout(), bottom()],
             ),
           ),
         );
@@ -48,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget modeOfGame() {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(10),
       child: Column(
         children: [
           const Text(
@@ -119,14 +111,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
 
-Widget logout() {
-  return IconButton(
-      onPressed: () {},
-      icon: const Icon(
-        Icons.logout,
-        size: 28,
-        color: AppColors.blueColor,
-      ));
+  Widget logout() {
+    return IconButton(
+        onPressed: () async => await ServiceController.logout(),
+        icon: const Icon(
+          Icons.logout,
+          size: 32,
+          color: AppColors.blueColor,
+        ));
+  }
 }

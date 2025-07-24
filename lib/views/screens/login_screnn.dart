@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe_app/controller/login_controller.dart';
+import 'package:tic_tac_toe_app/controller/source_controller.dart';
 import 'package:tic_tac_toe_app/core/utils/app_colors.dart';
 import 'package:tic_tac_toe_app/core/utils/app_images.dart';
 import 'package:tic_tac_toe_app/services/services.dart';
@@ -17,6 +18,7 @@ class LoginScrenn extends StatefulWidget {
 
 class _LoginScrennState extends State<LoginScrenn> {
   final controller = LoginController();
+  final controll = Services();
 
   @override
   void initState() {
@@ -210,7 +212,8 @@ class _LoginScrennState extends State<LoginScrenn> {
     return ElevatedButton(
       onPressed: () async {
         if (controller.formKey.currentState!.validate()) {
-          await loginUser(controller, context);
+          await controll.loginUser(controller, context);
+          ServiceController.checkLogin();
         }
       },
       style: ElevatedButton.styleFrom(

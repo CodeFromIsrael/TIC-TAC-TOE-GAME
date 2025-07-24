@@ -16,6 +16,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final controller = RegisterController();
+  final controll = Services();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return ElevatedButton(
         onPressed: () async {
           if (controller.formKey.currentState!.validate()) {
-            await setUser(controller, context);
+            await controll.setUser(controller, context);
           }
         },
         style: ElevatedButton.styleFrom(

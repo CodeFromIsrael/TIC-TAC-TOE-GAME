@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe_app/controller/source_controller.dart';
 import 'package:tic_tac_toe_app/views/screens/home_screen.dart';
@@ -14,7 +16,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    checkLogin();
+    ServiceController.checkLogin();
   }
 
   @override
@@ -22,18 +24,11 @@ class _AppState extends State<App> {
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: Colors.white),
       debugShowCheckedModeBanner: false,
-      home: StreamBuilder<bool>(
-        stream: loginStream,
+      home: StreamBuilder<String?>(
+        stream: ServiceController.streamToken.stream,
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            );
-          }
-
-          final isLogged = snapshot.data!;
-
-          if (isLogged) {
+          log("token: ${snapshot.data}");
+          if (snapshot.data != null) {
             return const HomeScreen();
           } else {
             return const LoginScrenn();
