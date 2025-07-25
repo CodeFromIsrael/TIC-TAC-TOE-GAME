@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tic_tac_toe_app/controller/source_controller.dart';
 import 'package:tic_tac_toe_app/core/utils/app_colors.dart';
 import 'package:tic_tac_toe_app/core/utils/app_images.dart';
+import 'package:tic_tac_toe_app/views/dialogs/comfirm_dialog.dart';
 import 'package:tic_tac_toe_app/views/screens/tictactoe_screen.dart';
 import 'package:tic_tac_toe_app/views/screens/widgets/wavy_container.dart';
 
@@ -114,7 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget logout() {
     return IconButton(
-        onPressed: () async => await ServiceController.logout(),
+        onPressed: () {
+          showDialog(
+              context: context, builder: (context) => comfirmDialog(context));
+        },
         icon: const Icon(
           Icons.logout,
           size: 32,
