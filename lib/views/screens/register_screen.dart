@@ -41,6 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 "Nome",
                                 "Usuario_123",
                                 const Icon(Icons.person),
+                                TextInputAction.next,
                                 controller.validateName,
                                 controller.nameController),
                             const SizedBox(
@@ -52,6 +53,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 const Icon(
                                   Icons.phone,
                                 ),
+                                TextInputAction.next,
+                                textinputtype:
+                                    const TextInputType.numberWithOptions(),
                                 controller.validatePhone,
                                 controller.phoneController),
                             const SizedBox(
@@ -61,6 +65,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 "E-mail",
                                 "usuario@gmail.com",
                                 const Icon(Icons.email),
+                                TextInputAction.next,
                                 controller.validateEmail,
                                 controller.emailController),
                             const SizedBox(
@@ -70,12 +75,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 stream: controller.streamObscureText,
                                 builder: (context, snapshot) {
                                   return input(
-                                      "Senha",
-                                      "Senha@2025",
-                                      touch(),
-                                      controller.validatePass,
-                                      controller.passController,
-                                      obcureText: controller.isconfirmed);
+                                    "Senha",
+                                    "Senha@2025",
+                                    touch(),
+                                    TextInputAction.next,
+                                    controller.validatePass,
+                                    controller.passController,
+                                    obcureText: controller.isconfirmed,
+                                  );
                                 }),
                             const SizedBox(
                               height: 20,
@@ -87,9 +94,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       "Confirmar Senha",
                                       "Repita sua senha",
                                       touch(),
+                                      TextInputAction.done,
                                       controller.confirmPass,
                                       controller.confirmController,
-                                      obcureText: controller.isconfirmed);
+                                      obcureText: controller.isconfirmed,
+                                      onField: () async {
+                                    if (controller.formKey.currentState!
+                                        .validate()) {
+                                      await controll.setUser(
+                                          controller, context);
+                                    }
+                                  });
                                 }),
                             const SizedBox(height: 20),
                             cadasterButton()
@@ -106,23 +121,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget input(String labelText, String heinText, icon,
-      String? Function(String?)? validator, TextEditingController control,
-      {bool obcureText = false}) {
+  Widget input(
+    String labelText,
+    String heinText,
+    icon,
+    TextInputAction textinputactions,
+    String? Function(String?)? validator,
+    TextEditingController control, {
+    bool obcureText = false,
+    TextInputType? textinputtype,
+    Future<void> Function()? onField,
+  }) {
     return TextFormField(
-      decoration: InputDecoration(
-          suffixIcon: icon,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-          labelText: labelText,
-          hintText: heinText,
-          labelStyle: const TextStyle(color: AppColors.blueColor),
-          hintStyle: const TextStyle(color: AppColors.blueColor),
-          focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.blueColor, width: 3))),
-      obscureText: obcureText,
-      validator: validator,
-      controller: control,
-    );
+        decoration: InputDecoration(
+            suffixIcon: icon,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+            labelText: labelText,
+            hintText: heinText,
+            labelStyle: const TextStyle(color: AppColors.blueColor),
+            hintStyle: const TextStyle(color: AppColors.blueColor),
+            focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: AppColors.blueColor, width: 3))),
+        obscureText: obcureText,
+        validator: validator,
+        controller: control,
+        textInputAction: textinputactions,
+        keyboardType: textinputtype,
+        onFieldSubmitted: (_) async {
+          if (onField != null) {
+            await onField();
+          }
+        });
   }
 
   Widget top() {

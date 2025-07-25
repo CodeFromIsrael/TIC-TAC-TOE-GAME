@@ -58,18 +58,27 @@ class _LoginScrennState extends State<LoginScrenn> {
                               'E-mail',
                               controller.validateEmail,
                               const Icon(Icons.email),
+                              TextInputAction.next,
                               controller.emailController),
                           const SizedBox(height: 14),
                           StreamBuilder<bool>(
                               stream: controller.streamObscureText,
                               builder: (context, snapshot) {
                                 return input(
-                                  "Senha",
-                                  controller.validatePass,
-                                  touchFunction(),
-                                  controller.passController,
-                                  obscureText: controller.hideText,
-                                );
+                                    "Senha",
+                                    controller.validatePass,
+                                    touchFunction(),
+                                    TextInputAction.done,
+                                    controller.passController,
+                                    obscureText: controller.hideText,
+                                    onField: () async {
+                                  if (controller.formKey.currentState!
+                                      .validate()) {
+                                    await controll.loginUser(
+                                        controller, context);
+                                    ServiceController.checkLogin();
+                                  }
+                                });
                               }),
                           const SizedBox(
                             height: 10,
@@ -128,9 +137,15 @@ class _LoginScrennState extends State<LoginScrenn> {
     );
   }
 
-  Widget input(String label, String? Function(String?)? validator, icon,
-      TextEditingController control,
-      {bool obscureText = false}) {
+  Widget input(
+    String label,
+    String? Function(String?)? validator,
+    icon,
+    TextInputAction? textAction,
+    TextEditingController control, {
+    bool obscureText = false,
+    Future<void> Function()? onField,
+  }) {
     return TextFormField(
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -145,6 +160,12 @@ class _LoginScrennState extends State<LoginScrenn> {
       validator: validator,
       obscureText: obscureText,
       controller: control,
+      textInputAction: textAction,
+      onFieldSubmitted: (_) async {
+        if (onField != null) {
+          await onField();
+        }
+      },
     );
   }
 
