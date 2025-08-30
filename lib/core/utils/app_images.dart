@@ -9,4 +9,6 @@ class AppImages {
   static const String imageLocale = "assets/images/Image_locale_mode.png";
   static const String imageOnlline = "assets/images/image_onlline.png";
   static const String bot = "assets/images/image_bor.png";
+  static const String noWifi = "assets/images/image_NoConnection.png";
+  static const String noConnection = "assets/images/noWifi.png";
 }

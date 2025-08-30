@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:tic_tac_toe_app/models/conecty.dart';
 
 class RegisterController {
   final formKey = GlobalKey<FormState>();
@@ -14,6 +15,7 @@ class RegisterController {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController confirmController = TextEditingController();
   final streamObscureText = BehaviorSubject<bool>();
+  final connecttion = Conecty();
   bool isconfirmed = true;
 
   void closeStreams() {
@@ -36,7 +38,7 @@ class RegisterController {
 
   String? validatePhone(String? value) {
     if (value == null || value.isEmpty) return "Campo Obrigatório";
-    // if (!phoneRegexp.hasMatch(value)) return "Numero Inválido";
+    if (!phoneRegexp.hasMatch(value)) return "Numero Inválido";
     log("$phoneController");
     return null;
   }

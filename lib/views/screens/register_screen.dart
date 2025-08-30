@@ -1,10 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:tic_tac_toe_app/controller/register_controller.dart';
 import 'package:tic_tac_toe_app/controller/source_controller.dart';
 import 'package:tic_tac_toe_app/core/utils/app_colors.dart';
+import 'package:tic_tac_toe_app/models/conecty.dart';
 import 'package:tic_tac_toe_app/services/services.dart';
+import 'package:tic_tac_toe_app/views/dialogs/noConnection_dialog.dart';
 import 'package:tic_tac_toe_app/views/dialogs/register_dialog.dart';
 import 'package:tic_tac_toe_app/views/screens/widgets/wavy_container.dart';
 
@@ -18,6 +21,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final controller = RegisterController();
   final controll = Services();
+  final connection = Conecty();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -192,7 +197,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget cadasterButton() {
     return ElevatedButton(
         onPressed: () async {
-          if (controller.formKey.currentState!.validate()) {
+          bool hasintenet = await connection.checkerConnection();
+          if (!hasintenet) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return noConnetivy(context);
+              },
+            );
+          } else if (controller.formKey.currentState!.validate()) {
             await controll.setUser(controller, context);
           }
         },

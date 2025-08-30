@@ -14,6 +14,8 @@ dependencies:
   shared_preferences: ^2.5.3
   phone_form_field: ^10.0.6
   http: ^1.4.0
+  connectivity_plus: ^6.1.4
+  internet_connection_checker: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -33,6 +35,8 @@ flutter:
   - assets/images/Image_locale_mode.png
   - assets/images/image_onlline.png
   - assets/images/image_bor.png
+  - assets/images/image_NoConnection.png
+  - assets/images/noWifi.png
   
   
 

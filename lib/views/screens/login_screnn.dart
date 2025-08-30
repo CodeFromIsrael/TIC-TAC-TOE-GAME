@@ -4,7 +4,9 @@ import 'package:tic_tac_toe_app/controller/login_controller.dart';
 import 'package:tic_tac_toe_app/controller/source_controller.dart';
 import 'package:tic_tac_toe_app/core/utils/app_colors.dart';
 import 'package:tic_tac_toe_app/core/utils/app_images.dart';
+import 'package:tic_tac_toe_app/models/conecty.dart';
 import 'package:tic_tac_toe_app/services/services.dart';
+import 'package:tic_tac_toe_app/views/dialogs/noConnection_dialog.dart';
 import 'package:tic_tac_toe_app/views/screens/home_screen.dart';
 import 'package:tic_tac_toe_app/views/screens/register_screen.dart';
 import 'package:tic_tac_toe_app/views/screens/widgets/wavy_container.dart';
@@ -19,6 +21,7 @@ class LoginScrenn extends StatefulWidget {
 class _LoginScrennState extends State<LoginScrenn> {
   final controller = LoginController();
   final controll = Services();
+  final connect = Conecty();
 
   @override
   void initState() {
@@ -232,7 +235,17 @@ class _LoginScrennState extends State<LoginScrenn> {
   Widget enterButton() {
     return ElevatedButton(
       onPressed: () async {
-        if (controller.formKey.currentState!.validate()) {
+        bool hasInternet = await connect.checkerConnection();
+
+        if (!hasInternet) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return noConnetivy(context);
+            },
+          );
+        } else if (controller.formKey.currentState!.validate()) {
           await controll.loginUser(controller, context);
           ServiceController.checkLogin();
         }

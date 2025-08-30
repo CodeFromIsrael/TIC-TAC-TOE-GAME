@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:tic_tac_toe_app/controller/register_controller.dart';
 import 'package:tic_tac_toe_app/core/utils/app_images.dart';
 import 'package:tic_tac_toe_app/views/dialogs/old_dialog.dart';
 
@@ -11,6 +12,7 @@ class TictactoeController {
   bool gameOver = false;
   int jogador1 = 0;
   int jogador2 = 0;
+  final playerName = RegisterController();
   List<List<int>> possibilityOfWinner = [
     [0, 1, 2],
     [3, 4, 5],

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:tic_tac_toe_app/controller/register_controller.dart';
 import 'package:tic_tac_toe_app/controller/tictactoe_controller.dart';
 import 'package:tic_tac_toe_app/core/utils/app_colors.dart';
 import 'package:tic_tac_toe_app/views/dialogs/new_game_dialog.dart';
 import 'package:tic_tac_toe_app/views/screens/login_screnn.dart';
 
-class SettingsDrawer extends StatelessWidget {
+class SettingsDrawer extends StatefulWidget {
   const SettingsDrawer({super.key, required this.controller});
   final TictactoeController controller;
 
+  @override
+  State<SettingsDrawer> createState() => _SettingsDrawerState();
+}
+
+class _SettingsDrawerState extends State<SettingsDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -28,7 +34,7 @@ class SettingsDrawer extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Nickname",
+                  "",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 )
               ],
@@ -50,8 +56,8 @@ class SettingsDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ), () {
             Navigator.of(context).pop();
-            controller.newGame();
-            controller.clearGrade();
+            widget.controller.newGame();
+            widget.controller.clearGrade();
             showDialog(
                 barrierDismissible: false,
                 context: context,
