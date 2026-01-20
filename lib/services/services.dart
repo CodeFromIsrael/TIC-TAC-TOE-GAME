@@ -6,8 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tic_tac_toe_app/controller/login_controller.dart';
 import 'package:tic_tac_toe_app/controller/register_controller.dart';
 import 'package:tic_tac_toe_app/controller/source_controller.dart';
+import 'package:tic_tac_toe_app/models/models.dart';
 import 'package:tic_tac_toe_app/views/dialogs/register_dialog.dart';
 import 'package:tic_tac_toe_app/views/screens/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Services {
   Future<void> setUser(RegisterController controller, context) async {
@@ -74,6 +76,29 @@ class Services {
         SnackBar(content: Text("Erro ao conectar com o servidor: $erro")),
       );
       log("Erro: $erro");
+    }
+  }
+
+  Future<User?> dateUser() async {
+    final url = Uri.parse("http://10.0.2.2:5000/me");
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("tokenOfAcess");
+
+    try {
+      final response = await http.get(url, headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      });
+      if (response.statusCode == 200) {
+        log(response.body);
+        return User.fromjson(jsonDecode(response.body));
+      } else {
+        log("Erro a o buscar o usuario: ${response.statusCode}");
+        return null;
+      }
+    } catch (e) {
+      log("Erro a o buscar o dados $e");
+      return null;
     }
   }
 }

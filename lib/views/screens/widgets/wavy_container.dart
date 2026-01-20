@@ -4,12 +4,10 @@ import 'package:tic_tac_toe_app/core/utils/app_colors.dart';
 class WavyContainer extends StatelessWidget {
   final PositionWavy postionWavy;
   final Widget? child;
+  final double? heith;
 
-  const WavyContainer({
-    super.key,
-    required this.postionWavy,
-    this.child,
-  });
+  const WavyContainer(
+      {super.key, required this.postionWavy, this.child, this.heith});
 
   @override
   Widget build(BuildContext context) {

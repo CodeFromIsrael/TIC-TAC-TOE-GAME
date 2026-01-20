@@ -3,6 +3,7 @@ import 'package:tic_tac_toe_app/controller/register_controller.dart';
 import 'package:tic_tac_toe_app/controller/tictactoe_controller.dart';
 import 'package:tic_tac_toe_app/core/utils/app_colors.dart';
 import 'package:tic_tac_toe_app/views/dialogs/new_game_dialog.dart';
+import 'package:tic_tac_toe_app/views/screens/home_screen.dart';
 import 'package:tic_tac_toe_app/views/screens/login_screnn.dart';
 
 class SettingsDrawer extends StatefulWidget {
@@ -74,7 +75,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
                   style: TextStyle(color: Colors.red, fontSize: 20)), () {
             //SystemNavigator.pop();
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const LoginScrenn()));
+                MaterialPageRoute(builder: (context) => const HomeScreen()));
           })
         ],
       ),

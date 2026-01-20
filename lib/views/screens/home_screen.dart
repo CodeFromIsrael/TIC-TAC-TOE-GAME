@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe_app/controller/source_controller.dart';
+import 'package:tic_tac_toe_app/controller/tictactoe_controller.dart';
 import 'package:tic_tac_toe_app/core/utils/app_colors.dart';
 import 'package:tic_tac_toe_app/core/utils/app_images.dart';
 import 'package:tic_tac_toe_app/views/dialogs/comfirm_dialog.dart';
 import 'package:tic_tac_toe_app/views/screens/onlline_screen.dart';
 import 'package:tic_tac_toe_app/views/screens/tictactoe_screen.dart';
+import 'package:tic_tac_toe_app/views/screens/user_screnn.dart';
+import 'package:tic_tac_toe_app/views/screens/widgets/settings_drawer.dart';
 import 'package:tic_tac_toe_app/views/screens/widgets/wavy_container.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final controller = TictactoeController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
             constraints: BoxConstraints(minHeight: constraints.maxHeight),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [top(), modeOfGame(), logout(), bottom()],
+              children: [top(), modeOfGame(), bottom()],
             ),
           ),
         );
@@ -37,7 +41,41 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget bottom() {
-    return const WavyContainer(postionWavy: PositionWavy.top);
+    return WavyContainer(
+      postionWavy: PositionWavy.top,
+      child: SizedBox(
+        height: 150,
+        child: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: logout(),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsetsGeometry.all(20.0),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: rakingBottom(),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: userBottom(),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget modeOfGame() {
@@ -125,8 +163,31 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         icon: const Icon(
           Icons.logout,
-          size: 32,
-          color: AppColors.blueColor,
+          size: 40,
+          color: Colors.white,
+        ));
+  }
+
+  Widget userBottom() {
+    return IconButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const UserScrenn()));
+        },
+        icon: const Icon(
+          Icons.person,
+          size: 40,
+          color: Colors.white,
+        ));
+  }
+
+  Widget rakingBottom() {
+    return IconButton(
+        onPressed: () {},
+        icon: const Icon(
+          Icons.leaderboard,
+          size: 30,
+          color: Colors.white,
         ));
   }
 }
